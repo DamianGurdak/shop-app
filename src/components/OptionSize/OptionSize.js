@@ -14,7 +14,10 @@ const OptionSize = (props) => {
               className={clsx(
                 size.name === props.currentSize.name && styles.active
               )}
-              onClick={() => props.setCurrentSize(size)}
+              onClick={() => {
+                props.setCurrentSize(size);
+                props.setCurrentPrice(size.additionalPrice);
+              }}
             >
               {size.name}
             </button>

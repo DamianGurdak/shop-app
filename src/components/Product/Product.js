@@ -1,29 +1,25 @@
 import styles from './Product.module.scss';
-
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import ProductImage from '../ProductImage/ProductImage';
 import ProductForm from '../ProductForm/ProductForm';
+import { useMemo } from 'react';
+import PropTypes from 'prop-types';
 
 const Product = (props) => {
   const [currentColor, setCurrentColor] = useState(props.colors[0]);
   const [currentSize, setCurrentSize] = useState(props.sizes[0]);
+  const [currentPrice, setCurrentPrice] = useState(
+    props.sizes[0].additionalPrice
+  );
 
-  // const [currentPrice, setCurrentPrice] = useState(
-  //   props.sizes[0].additionalPrice
-  // );
-
-  const getPrice = () => {
-    // console.log(props.sizes);
-    // props.sizes.map((size) => console.log(size.additionalPrice));
-
-    let price = props.basePrice;
-
-    // const found = props.sizes.find((element) => element > price);
-    // console.log(found);
-
-    return price;
+  const getPrice = (a, b) => {
+    return a + b;
   };
+
+  const totalPrice = useMemo(
+    () => getPrice(props.basePrice, currentPrice),
+    [props.basePrice, currentPrice]
+  );
 
   const productSummary = (e) => {
     e.preventDefault();
@@ -31,7 +27,8 @@ const Product = (props) => {
     console.log('=============');
 
     console.log('Name:', props.title);
-    console.log('Price:', getPrice());
+    // console.log('Price:', getPrice());
+    console.log('Price:', totalPrice);
     console.log('Size:', currentSize.name);
     console.log('Color:', currentColor);
   };
@@ -47,7 +44,8 @@ const Product = (props) => {
       <div>
         <header>
           <h2 className={styles.name}>{props.title}</h2>
-          <span className={styles.price}>Price: {getPrice()}$</span>
+          {/* <span className={styles.price}>Price: {getPrice()}$</span> */}
+          <span className={styles.price}>Price: {totalPrice}$</span>
         </header>
 
         <ProductForm
@@ -57,7 +55,7 @@ const Product = (props) => {
           setCurrentSize={setCurrentSize}
           price={props.currentPrice}
           additionalPrice={props.additionalPrice} //?
-          // setCurrentPrice={setCurrentPrice}
+          setCurrentPrice={setCurrentPrice}
           colors={props.colors}
           currentColor={currentColor}
           setCurrentColor={setCurrentColor}

@@ -12,7 +12,7 @@ const ProductForm = (props) => {
         sizes={props.sizes}
         currentSize={props.currentSize}
         setCurrentSize={props.setCurrentSize}
-        // setCurrentPrice={props.setCurrentPrice}
+        setCurrentPrice={props.setCurrentPrice}
       />
 
       <OptionColor
