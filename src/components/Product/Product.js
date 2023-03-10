@@ -35,11 +35,11 @@ const Product = (props) => {
 
   return (
     <article className={styles.product}>
-      <ProductImage>
+      <ProductImage
         title={props.title}
         name={props.name}
         color={currentColor}
-      </ProductImage>
+      />
 
       <div>
         <header>
